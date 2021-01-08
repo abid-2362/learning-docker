@@ -1,0 +1,63 @@
+Docker Commands
+-----------------
+docker version
+dockercli -Version (small "v" does not work)
+docker info
+docker --version
+docker-compose --version
+docker-machine --version
+notary version
+--------
+Chapter 4:
+docker image ls
+docker pull alpine -or- docker pull alpine:latest
+
+--to check what is the cmd command in an image, use "docker inspect "image_name" command and see what is written in Cmd section--
+docker container run -it ubuntu:latest /bin/bash -> ubuntu image will have /bin/bash as cmd
+docker container run -it alpine:latest /bin/sh -> but alpine image will have /bin/sh as cmd
+
+docker container exec -it eager_nobel bash
+or
+docker container exec -it eager_nobel sh -> in my case, alpine has "sh" instead of "bash"
+
+---
+docker container stop eager_nobel
+docker container rm eager_nobel -or-docker container rm <container-id>
+---
+
+docker image build -t test:latest .
+
+docker container run -d --name web1 -p 8080:8080 test:latest
+
+docker image inspect <image-name> == docker inspect <image-name>
+
+docker image rm alpine:latest -or- docker image rm <image-id>
+
+docker image pull alpine@sha256:621c2f39f8133acb8e64023a94dbdf0d5ca81896102b9e57c0dc184cadaf5528
+docker image rm $(docker image ls -q) -f -> runs only on powershell terminal in windows
+docker container run -d -p 8088:8080 --name webserver nigelpoulton/pluralsight-docker-ci
+docker image history <image-name>:<tag-name> e.g docker image history web:latest
+
+=============
+
+docker run -d -it --name devtest --mount type=bind,source="$(pwd)"/target,target=/app nginx:latest
+---------
+docker run -d -it --name devtest -v "$(pwd)"/target:/app nginx:latest
+
+=============
+Videos
+Benefits of Containers
+ -Operational Efficiency
+  Portability
+  Image format -diff -tree
+  Registry -RBAC -Vulnerability Scanning -Signing
+  Control
+  State Management
+
+ -Runtime
+  Dynamic
+  Horizontal Scaling
+  Scheduling/Clustring
+  Bare Metal
+  Consolidation
+ 
